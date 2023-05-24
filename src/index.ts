@@ -1,7 +1,3 @@
-import { greetUser } from '$utils/greet';
+import { toggleAccordionStyle } from 'src/Accordion';
 
-window.Webflow ||= [];
-window.Webflow.push(() => {
-  const name = 'John De';
-  greetUser(name);
-});
+toggleAccordionStyle();
