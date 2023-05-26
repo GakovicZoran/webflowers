@@ -1,1 +1,100 @@
-{ "extends": ["@finsweet"] }
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:import/typescript",
+    "plugin:react-hooks/recommended"
+  ],
+  "overrides": [],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "eslint-plugin-unicorn",
+    "eslint-plugin-import",
+    "simple-import-sort",
+    "eslint-plugin-no-null",
+    "@typescript-eslint",
+    "typescript-sort-keys"
+  ],
+  "rules": {
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "eqeqeq": "off",
+    "no-eq-null": "off",
+    "react/display-name": "off",
+    "max-lines": "off",
+    "init-declarations": "off",
+    "unicorn/prefer-includes": "off",
+    "unicorn/prefer-string-slice": "off",
+    "unicorn/prefer-dom-node-remove": "off",
+    "unicorn/prefer-object-from-entries": "off",
+    "import/no-unassigned-import": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "unicorn/no-null": "off",
+    "no-negated-condition": "off",
+    "@typescript-eslint/ban-types": "off",
+    "unicorn/no-empty-file": "off",
+    "max-lines-per-function": "off",
+    "id-length": ["error", { "min": 1 }],
+    "typescript-sort-keys/interface": "warn",
+    "typescript-sort-keys/string-enum": "warn",
+    "unicorn/prefer-node-protocol": "off",
+    "unicorn/prefer-module": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "dot-notation": "off",
+    "import/no-extraneous-dependencies": "off",
+    "linebreak-style": "off",
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "react/jsx-props-no-spreading": "off",
+    "react/no-unused-prop-types": "off",
+    "react/require-default-props": "off",
+    "no-underscore-dangle": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "unicorn/prefer-code-point": "off",
+    "unicorn/prefer-spread": "off",
+    "func-style": "off",
+    "unicorn/no-object-as-default-parameter": "off",
+    "@next/next/no-html-link-for-pages": "off",
+    "no-unused-expressions": "off",
+    "unicorn/no-process-exit": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

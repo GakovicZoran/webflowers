@@ -1,35 +1,84 @@
-export function toggleAccordionStyle() {
-  const element = document.querySelector('[accordion-item-trigger="accordion-style-change"]');
-  let isBorderVisible = true;
+export function toggleAccordion() {
+  const elements = document.querySelectorAll<HTMLElement>('[accordion-item-trigger="accordion-style-change"]');
 
-  if (element !== null) {
-    const targetElement = element as HTMLElement;
-    const headingElement = targetElement.querySelector('h4'); // Select the <h4> element
+  let activeAccordion: HTMLElement | null = null;
 
-    targetElement.addEventListener('click', function () {
-      if (isBorderVisible) {
-        targetElement.style.borderBottom = 'none';
-        targetElement.style.backgroundColor = 'rgba(45,55,72,0.1)';
-        targetElement.style.borderRadius = '8px';
-        targetElement.style.padding = '20px';
-        targetElement.style.transition = 'all 0.3s ease-in-out';
+  elements.forEach((element) => {
+    const accordionContent = element.querySelector<HTMLElement>('[accordion-content="accordion-content-visibility"]');
 
-        if (headingElement) {
-          headingElement.style.paddingTop = '0px';
-        }
+    if (element.id === 'active-accordion') {
+      applyAccordionOpenStyle(element, accordionContent);
+      activeAccordion = accordionContent;
+    }
 
-        isBorderVisible = false;
+    element.addEventListener('click', function () {
+      if (activeAccordion === accordionContent) {
+        applyAccordionClosedStyle(element, accordionContent);
+        activeAccordion = null;
       } else {
-        targetElement.style.padding = '0px';
-
-        setTimeout(() => {
-          targetElement.style.borderBottom = '1px solid #2d3748';
-          targetElement.style.backgroundColor = '';
-          targetElement.style.borderRadius = '';
-          targetElement.style.transition = 'padding 0.5s ease-in-out';
-          isBorderVisible = true;
-        }, 230);
+        if (activeAccordion) {
+          applyAccordionClosedStyle(activeAccordion.parentElement!, activeAccordion);
+          setTimeout(() => {
+            applyAccordionOpenStyle(element, accordionContent);
+            activeAccordion = accordionContent;
+          }, 500);
+        } else {
+          applyAccordionOpenStyle(element, accordionContent);
+          activeAccordion = accordionContent;
+        }
       }
     });
+
+    if (accordionContent) {
+      accordionContent.addEventListener('transitionend', function () {
+        accordionContent.style.display = element.classList.contains('accordion-open') ? 'block' : 'none';
+      });
+    }
+  });
+}
+
+function applyAccordionOpenStyle(element: HTMLElement, accordionContent: HTMLElement | null) {
+  element.style.cssText = `
+      border-bottom: none;
+      background-color: rgba(45,55,72,0.1);
+      border-radius: 8px;
+      padding: 20px;
+      transition: all 0.3s ease-in-out;
+    `;
+
+  const accordionArrow = element.querySelector<HTMLElement>('.accordion-arrow');
+  if (accordionArrow) {
+    accordionArrow.style.transform = 'rotate(180deg)';
+    accordionArrow.style.transition = 'all 0.3s ease-in-out';
   }
+
+  const headingElements = element.querySelectorAll<HTMLElement>('h4');
+  headingElements.forEach((headingElement) => {
+    headingElement.style.paddingTop = '0px';
+  });
+
+  if (accordionContent) {
+    accordionContent.style.display = 'block';
+  }
+}
+
+function applyAccordionClosedStyle(element: HTMLElement, accordionContent: HTMLElement | null) {
+  element.style.padding = '0px';
+
+  const accordionArrow = element.querySelector<HTMLElement>('.accordion-arrow');
+  if (accordionArrow) {
+    accordionArrow.style.transform = '';
+  }
+
+  setTimeout(() => {
+    element.style.cssText = `
+        border-bottom: 1px solid #2d3748;
+        background-color: '';
+        border-radius: '';
+        transition: padding 0.5s ease-in-out;
+      `;
+    if (accordionContent) {
+      accordionContent.style.display = 'none';
+    }
+  }, 230);
 }

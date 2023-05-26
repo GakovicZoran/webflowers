@@ -1,3 +1,5 @@
-import { toggleAccordionStyle } from 'src/Accordion';
+import { toggleAccordion } from 'src/Accordion';
+import { changeNavbarBackground } from 'src/Navigation';
 
-toggleAccordionStyle();
+toggleAccordion();
+changeNavbarBackground();
