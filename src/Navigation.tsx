@@ -6,6 +6,8 @@ export function changeNavbarBackground() {
   const navigationInnerContainer = navigation?.querySelector('.navigation-inner-container');
   const logoAnchorTag = document.createElement('a');
   const logoImgTag = document.createElement('img');
+  const logoAnchorTags = navigationInnerContainer?.querySelectorAll('.logo-image');
+
   logoAnchorTag.appendChild(logoImgTag);
 
   let prevScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
@@ -20,7 +22,11 @@ export function changeNavbarBackground() {
 
     const logoImage2 = new Image();
     logoImage2.src =
-      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/646f7160b916583eaf0eafce_logo-primary-color.svg';
+      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6452b092c110247c6c6ebedd_dz-logo-footer.svg';
+
+    if (navigationInnerContainer && logoAnchorTags?.length === 1) {
+      logoAnchorTags[0]?.remove();
+    }
 
     if (navigationInnerContainer) {
       navigationInnerContainer.appendChild(logoAnchorTag);

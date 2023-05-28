@@ -21,7 +21,7 @@ export function toggleAccordion() {
           setTimeout(() => {
             applyAccordionOpenStyle(element, accordionContent);
             activeAccordion = accordionContent;
-          }, 500);
+          }, 200);
         } else {
           applyAccordionOpenStyle(element, accordionContent);
           activeAccordion = accordionContent;
@@ -31,7 +31,9 @@ export function toggleAccordion() {
 
     if (accordionContent) {
       accordionContent.addEventListener('transitionend', function () {
-        accordionContent.style.display = element.classList.contains('accordion-open') ? 'block' : 'none';
+        const shouldExpand = element.classList.contains('accordion-open');
+        accordionContent.style.height = shouldExpand ? 'auto' : '0px';
+        accordionContent.style.overflow = shouldExpand ? 'visible' : 'hidden';
       });
     }
   });
@@ -58,7 +60,8 @@ function applyAccordionOpenStyle(element: HTMLElement, accordionContent: HTMLEle
   });
 
   if (accordionContent) {
-    accordionContent.style.display = 'block';
+    accordionContent.style.height = 'auto';
+    accordionContent.style.overflow = 'visible';
   }
 }
 
@@ -78,7 +81,8 @@ function applyAccordionClosedStyle(element: HTMLElement, accordionContent: HTMLE
         transition: padding 0.5s ease-in-out;
       `;
     if (accordionContent) {
-      accordionContent.style.display = 'none';
+      accordionContent.style.height = '0px';
+      accordionContent.style.overflow = 'hidden';
     }
-  }, 230);
+  }, 0);
 }
