@@ -1,12 +1,13 @@
-export function changeNavbarBackground() {
-  const navigation = document.getElementById('navigation');
+export function changeNavbarDuringScroll() {
+  const navigation = document.querySelector('[navigation="trigger"]');
   const sections = Array.from(document.querySelectorAll<HTMLElement>('[id^="section-"]'));
   const getAnchorTags = navigation?.querySelectorAll('a');
-  const navbarCtaBtn = document.querySelector('.navbar-cta-btn') as HTMLElement;
-  const navigationInnerContainer = navigation?.querySelector('.navigation-inner-container');
+  const navbarCtaBtn = document.querySelector('.hero-cta') as HTMLElement;
+  const navigationInnerContainer = navigation?.querySelector('.navigation-logo-container');
   const logoAnchorTag = document.createElement('a');
   const logoImgTag = document.createElement('img');
   const logoAnchorTags = navigationInnerContainer?.querySelectorAll('.logo-image');
+  const hamburgerMenuIcon = document.querySelector('.hamburger-menu');
 
   logoAnchorTag.appendChild(logoImgTag);
 
@@ -16,13 +17,6 @@ export function changeNavbarBackground() {
     const sectionTops = sections.map((section) => section.offsetTop - 50);
 
     const backgroundColors = ['#2d3748', '#2d3748', '#cbd5e0', '#2d3748', '#cbd5e0'];
-
-    const logoImage1 = new Image();
-    logoImage1.src = 'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64524689a1a3e6857d97fd63_dz-logo.svg';
-
-    const logoImage2 = new Image();
-    logoImage2.src =
-      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6452b092c110247c6c6ebedd_dz-logo-footer.svg';
 
     if (navigationInnerContainer && logoAnchorTags?.length === 1) {
       logoAnchorTags[0]?.remove();
@@ -35,6 +29,10 @@ export function changeNavbarBackground() {
     logoAnchorTag.className = 'logo-image';
 
     navigation.style.transition = 'transform 0.3s, background-color 0.3s';
+
+    const logoImage1 = 'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64524689a1a3e6857d97fd63_dz-logo.svg';
+    const logoImage2 =
+      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6452b092c110247c6c6ebedd_dz-logo-footer.svg';
 
     window.addEventListener('scroll', () => {
       const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
@@ -49,29 +47,36 @@ export function changeNavbarBackground() {
       navigation.style.backgroundColor = backgroundColor;
 
       if (backgroundColor === '#2d3748') {
-        logoImgTag.src = logoImage1.src;
+        logoImgTag.src = logoImage1;
+
         getAnchorTags?.forEach((anchor) => {
           anchor.style.color = '#cbd5e0';
         });
         navbarCtaBtn.style.border = '1px solid #cbd5e0';
-        logoImage1.style.display = 'block';
-        logoImage2.style.display = 'none';
       } else if (backgroundColor === '#cbd5e0') {
-        logoImgTag.src = logoImage2.src;
+        logoImgTag.src = logoImage2;
+
         getAnchorTags?.forEach((anchor) => {
           anchor.style.color = '#2d3748';
         });
         navbarCtaBtn.style.border = '1px solid #2d3748';
-        logoImage1.style.display = 'none';
-        logoImage2.style.display = 'block';
       }
 
       if (scrollPosition > prevScrollPosition) {
         navigation.style.transform = 'translateY(-100%)';
+
+        if (hamburgerMenuIcon) {
+          hamburgerMenuIcon.style.transform = 'translateY(-200%)';
+          hamburgerMenuIcon.style.transition = 'transform 0.2s, background-color 0.2s';
+        }
       } else {
         navigation.style.transform = 'translateY(0)';
-      }
 
+        if (hamburgerMenuIcon) {
+          hamburgerMenuIcon.style.transform = 'translateY(0)';
+          hamburgerMenuIcon.style.transition = 'transform 0.3s, background-color 0.3s';
+        }
+      }
       prevScrollPosition = scrollPosition;
     });
 
@@ -80,15 +85,12 @@ export function changeNavbarBackground() {
     window.addEventListener('resize', () => {
       const windowWidth = window.innerWidth;
 
-      if (windowWidth >= 768) {
+      if (windowWidth >= 991) {
         logoImgTag.style.width = '255px';
         logoImgTag.style.height = '45px';
-      } else if (windowWidth >= 480) {
+      } else {
         logoImgTag.style.width = '168px';
         logoImgTag.style.height = '30px';
-      } else {
-        logoImgTag.style.width = '131px';
-        logoImgTag.style.height = '24px';
       }
     });
 

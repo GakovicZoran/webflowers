@@ -5,61 +5,93 @@ export function initializeCardAnimation() {
   const isCardVisible = new Array(cardAnimationWrapper.length).fill(false);
 
   function addCardAnimation() {
-    const style = document.createElement('style');
-    style.innerHTML = `
-      .hover-image {
-        position: absolute;
-        top: 50%;
-        left: 50.2%;
-        transform: translate(-50%, -50%);
-        opacity: 0;
-        transition: opacity 0.5s ease;
-      }
-      .hover-image.visible {
-        opacity: 1;
-        transition: opacity 0.5s ease;
-      }
-    `;
-    document.head.appendChild(style);
-
-    const hoverImageSrcs = [
+    const hoverImageSrcsFirstSection = [
       'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64706594e005606711d996c8_service-branding-active.svg',
       'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/645b8cf80be57fc479473933_services-designing-active.svg',
       'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/645b8cf8b620b3816fd22c4f_services-development-active.svg',
       'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/645b8cf80ae7410c923feec9_services-enterprise-active.svg',
     ];
 
+    const hoverImageSrcsSecondSection = [
+      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6474feb69a597b99f183633c_octacode-hovered-project.webp',
+      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6474feb61f9f3593b5706f04_webflowers-hovered-project.webp',
+    ];
+
+    const hoverImageSrcsThirdCard = [
+      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/647602b455bdd6a1ee761d8d_branding-healthy-hovered.png',
+      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/647602b4b119e5e438dd50f5_branding-forest-hovered.png',
+      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/647602b450d16565dff6841a_branding-webflowers-hovered.png',
+    ];
+
     cardWrappers.forEach((cardWrapper, index) => {
       const innerWrapper = cardWrapper.querySelector('[card-inner-wrapper="card-inner-interaction"]');
-      const hoverImageSrc = hoverImageSrcs[index];
-      const defaultImage = innerWrapper?.querySelector('img');
-
-      if (cardWrapper.querySelector('.hover-image')) {
-        return;
-      }
+      const defaultImage = innerWrapper?.querySelector('img') as HTMLImageElement | null;
+      const defaultImageSrc = defaultImage?.src;
 
       if (innerWrapper && defaultImage) {
-        const hoverImage = new Image();
-        hoverImage.src = hoverImageSrc;
-        hoverImage.classList.add('hover-image');
-
-        const cardImageContainers = cardWrapper.querySelectorAll('[card-image-container="card-image-fixing-position"]');
-        cardImageContainers.forEach((container) => {
-          container.appendChild(hoverImage);
-        });
-
+        defaultImage.removeAttribute('srcset');
+        defaultImage.removeAttribute('sizes');
         innerWrapper.addEventListener('mouseover', () => {
-          defaultImage.style.opacity = '0';
-
-          hoverImage.classList.add('visible');
+          if (defaultImageSrc) {
+            const hoverImageSrc =
+              index < hoverImageSrcsFirstSection.length
+                ? hoverImageSrcsFirstSection[index]
+                : hoverImageSrcsSecondSection[index - hoverImageSrcsFirstSection.length];
+            defaultImage.src = hoverImageSrc;
+          }
         });
 
         innerWrapper.addEventListener('mouseout', () => {
-          defaultImage.style.opacity = '1';
-          hoverImage.classList.remove('visible');
+          if (defaultImageSrc) {
+            defaultImage.src = defaultImageSrc;
+          }
         });
       }
     });
+
+    // Handle second section separately
+    const secondSectionWrappers = document.querySelectorAll('.modified-card-animation-wrapper');
+    const thirdCardWrapper = document.querySelector('.card-branding-container');
+    const thirdCardImages = thirdCardWrapper?.querySelectorAll('img');
+
+    secondSectionWrappers.forEach((cardWrapper, index) => {
+      const innerWrapper = cardWrapper.querySelector('[card-inner-wrapper="card-inner-interaction"]');
+      const defaultImage = innerWrapper?.querySelector('img') as HTMLImageElement | null;
+      const defaultImageSrc = defaultImage?.src;
+
+      if (innerWrapper && defaultImage) {
+        innerWrapper.addEventListener('mouseover', () => {
+          if (defaultImageSrc) {
+            const hoverImageSrc = hoverImageSrcsSecondSection[index];
+            defaultImage.src = hoverImageSrc;
+          }
+        });
+
+        innerWrapper.addEventListener('mouseout', () => {
+          if (defaultImageSrc) {
+            defaultImage.src = defaultImageSrc;
+          }
+        });
+      }
+    });
+
+    if (thirdCardWrapper && thirdCardImages) {
+      thirdCardImages.forEach((image, index) => {
+        const defaultImageSrc = image.src;
+
+        image.addEventListener('mouseover', () => {
+          if (defaultImageSrc) {
+            image.src = hoverImageSrcsThirdCard[index];
+          }
+        });
+
+        image.addEventListener('mouseout', () => {
+          if (defaultImageSrc) {
+            image.src = defaultImageSrc;
+          }
+        });
+      });
+    }
 
     toggleCardInnerContainer();
   }
@@ -67,6 +99,7 @@ export function initializeCardAnimation() {
   function toggleCardInnerContainer() {
     cardAnimationWrapper.forEach((wrapper, index) => {
       const innerContainer = cardInnerContainersHidden[index] as HTMLElement;
+
       wrapper.addEventListener('click', () => {
         for (let i = 0; i < isCardVisible.length; i++) {
           if (isCardVisible[i] && i !== index) {
