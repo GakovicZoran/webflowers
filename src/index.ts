@@ -28,21 +28,21 @@ inputElements.forEach((inputElement) => {
   });
 });
 
-// Add an event listener to adjust the width on window resize
-window.addEventListener('resize', adjustParagraphWidth);
+// // Add an event listener to adjust the width on window resize
+// window.addEventListener('resize', adjustParagraphWidth);
 
-// Function to adjust the width of the paragraph dynamically
-function adjustParagraphWidth() {
-  const screenWidth = window.innerWidth;
-  const paragraph = document.querySelector('.hero-paragraph-width');
+// // Function to adjust the width of the paragraph dynamically
+// function adjustParagraphWidth() {
+//   const screenWidth = window.innerWidth;
+//   const paragraph = document.querySelector('.hero-paragraph-width');
 
-  if (screenWidth <= 767) {
-    paragraph.style.width = '100%';
-  } else {
-    const calculatedWidth = 64 + ((screenWidth - 767) / 767) * 36; // Calculate the dynamic width
-    paragraph.style.width = calculatedWidth + '%';
-  }
-}
+//   if (screenWidth <= 767) {
+//     paragraph.style.width = '100%';
+//   } else {
+//     const calculatedWidth = 64 + ((screenWidth - 767) / 767) * 36; // Calculate the dynamic width
+//     paragraph.style.width = calculatedWidth + '%';
+//   }
+// }
 
-// Call the function initially to set the initial width
-adjustParagraphWidth();
+// // Call the function initially to set the initial width
+// adjustParagraphWidth();

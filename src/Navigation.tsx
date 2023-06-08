@@ -1,5 +1,5 @@
 export function changeNavbarDuringScroll() {
-  const navigation = document.querySelector('[navigation="trigger"]');
+  const navigation = document.querySelector<HTMLElement>('[navigation="trigger"]');
   const sections = Array.from(document.querySelectorAll<HTMLElement>('[id^="section-"]'));
   const getAnchorTags = navigation?.querySelectorAll('a');
   const navbarCtaBtn = document.querySelector('.hero-cta') as HTMLElement;
@@ -7,7 +7,9 @@ export function changeNavbarDuringScroll() {
   const logoAnchorTag = document.createElement('a');
   const logoImgTag = document.createElement('img');
   const logoAnchorTags = navigationInnerContainer?.querySelectorAll('.logo-image');
-  const hamburgerMenuIcon = document.querySelector('.hamburger-menu');
+  const hamburgerMenuIcon = document.querySelector<HTMLElement>('.hamburger-menu');
+  const element = document.querySelector<HTMLElement>('#section-1');
+  const navBarContainer = document.querySelector<HTMLElement>('#nav-bar-container');
 
   logoAnchorTag.appendChild(logoImgTag);
 
@@ -15,7 +17,6 @@ export function changeNavbarDuringScroll() {
 
   if (navigation && sections.length > 0) {
     const sectionTops = sections.map((section) => section.offsetTop - 50);
-
     const backgroundColors = ['#2d3748', '#2d3748', '#cbd5e0', '#2d3748', '#cbd5e0'];
 
     if (navigationInnerContainer && logoAnchorTags?.length === 1) {
@@ -36,11 +37,25 @@ export function changeNavbarDuringScroll() {
 
     window.addEventListener('scroll', () => {
       const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-
+      console.log(scrollPosition);
       let index = sectionTops.findIndex((top, i) => {
         const nextTop = sectionTops[i + 1] || Number.MAX_VALUE;
         return scrollPosition >= top && scrollPosition < nextTop;
       });
+
+      if (scrollPosition === 0 && navBarContainer) {
+        navBarContainer.style.position = 'sticky';
+        navBarContainer.style.top = '0';
+        navBarContainer.style.width = '100%';
+        navigation.style.position = '';
+        navigation.style.top = '';
+        navigation.style.width = '';
+      } else if (scrollPosition > 100) {
+        navBarContainer.style.position = 'static';
+        navigation.style.position = 'fixed';
+        navigation.style.top = '0';
+        navigation.style.width = '100%';
+      }
 
       const backgroundColor = backgroundColors[index];
 
