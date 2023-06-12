@@ -8,7 +8,7 @@ export function changeNavbarDuringScroll() {
   const logoImgTag = document.createElement('img');
   const logoAnchorTags = navigationInnerContainer?.querySelectorAll('.logo-image');
   const hamburgerMenuIcon = document.querySelector<HTMLElement>('.hamburger-menu');
-  const element = document.querySelector<HTMLElement>('#section-1');
+  const elementSection1 = document.querySelector<HTMLElement>('#section-1');
   const navBarContainer = document.querySelector<HTMLElement>('#nav-bar-container');
 
   logoAnchorTag.appendChild(logoImgTag);
@@ -37,7 +37,7 @@ export function changeNavbarDuringScroll() {
 
     window.addEventListener('scroll', () => {
       const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-      console.log(scrollPosition);
+
       let index = sectionTops.findIndex((top, i) => {
         const nextTop = sectionTops[i + 1] || Number.MAX_VALUE;
         return scrollPosition >= top && scrollPosition < nextTop;
