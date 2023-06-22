@@ -34,7 +34,7 @@ const animatePlaceholder = (): void => {
       if (!animationActive) return;
       const curPlaceholderFullText: string = texts[curTextNum];
 
-      if (curPlaceholder === curPlaceholderFullText + '|' && blinkCounter === 3) {
+      if (curPlaceholder === curPlaceholderFullText + '|' && blinkCounter === 2) {
         blinkCounter = 0;
         curTextNum = (curTextNum + 1) % texts.length;
         curPlaceholder = '|';
@@ -79,7 +79,7 @@ const animatePlaceholder = (): void => {
 
       input.addEventListener('focus', () => aw.stop());
       input.addEventListener('blur', (e) => {
-        if (e.target?.value === '') setTimeout(aw.start, 2000);
+        if (e.target?.value === '') setTimeout(aw.start, 1000);
       });
     }
   });

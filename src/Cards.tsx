@@ -65,7 +65,6 @@ export function initializeCardAnimation() {
         });
       }
     });
-
     // Handle second section separately
     const secondSectionWrappers = document.querySelectorAll('.modified-card-animation-wrapper');
     const thirdCardWrapper = document.querySelector('.card-branding-container');
@@ -124,17 +123,20 @@ export function initializeCardAnimation() {
           brandingAnimationWrapper.forEach((wrapper, index) => {
             wrapper.addEventListener('click', (event) => {
               closeActiveCard(cardAnimationWrapper, cardInnerContainersHidden, activeCardIndex);
-
               event.stopPropagation(); // Prevent click event propagation
-              healthyCard.style.display = 'block';
+              healthyCard.style.display = 'flex';
               wrapper.style.opacity = '0';
               wrapper.style.display = 'none';
 
               if (forestDiaryCard) {
+                forestDiaryCard.style.opacity = '0%';
+                forestDiaryCard.style.transition = 'opacity 2s ease';
                 forestDiaryCard.style.display = 'none';
               }
 
               if (webFlowersCard) {
+                webFlowersCard.style.opacity = '0%';
+                webFlowersCard.style.transition = 'opacity 2s ease';
                 webFlowersCard.style.display = 'none';
               }
 
@@ -149,7 +151,7 @@ export function initializeCardAnimation() {
             if (healthyCard) {
               healthyCard.addEventListener('click', (event) => {
                 healthyCard.style.display = 'none';
-                wrapper.style.display = 'block';
+                wrapper.style.display = 'flex';
 
                 setTimeout(() => {
                   wrapper.style.transition = 'opacity 2s ease';
@@ -166,14 +168,18 @@ export function initializeCardAnimation() {
 
               event.stopPropagation(); // Prevent click event propagation
               if (forestDiaryCard) {
-                forestDiaryCard.style.display = 'block';
+                forestDiaryCard.style.display = 'flex';
               }
 
               if (healthyCard) {
+                healthyCard.style.opacity = '0%';
+                healthyCard.style.transition = 'opacity 2s ease';
                 healthyCard.style.display = 'none';
               }
 
               if (webFlowersCard) {
+                webFlowersCard.style.opacity = '0%';
+                webFlowersCard.style.transition = 'opacity 2s ease';
                 webFlowersCard.style.display = 'none';
               }
 
@@ -191,7 +197,7 @@ export function initializeCardAnimation() {
             if (forestDiaryCard) {
               forestDiaryCard.addEventListener('click', (event) => {
                 forestDiaryCard.style.display = 'none';
-                wrapper.style.display = 'block';
+                wrapper.style.display = 'flex';
 
                 setTimeout(() => {
                   wrapper.style.transition = 'opacity 2s ease';
@@ -208,16 +214,21 @@ export function initializeCardAnimation() {
 
               event.stopPropagation(); // Prevent click event propagation
               if (webFlowersCard) {
-                webFlowersCard.style.display = 'block';
+                webFlowersCard.style.display = 'flex';
+                webFlowersCard.style.justifyContent = 'flex-start';
               }
               wrapper.style.opacity = '0';
               wrapper.style.display = 'none';
 
               if (forestDiaryCard) {
+                forestDiaryCard.style.opacity = '0%';
+                forestDiaryCard.style.transition = 'opacity 2s ease';
                 forestDiaryCard.style.display = 'none';
               }
 
               if (healthyCard) {
+                healthyCard.style.opacity = '0%';
+                healthyCard.style.transition = 'opacity 2s ease';
                 healthyCard.style.display = 'none';
               }
 
@@ -232,7 +243,7 @@ export function initializeCardAnimation() {
             if (webFlowersCard) {
               webFlowersCard.addEventListener('click', (event) => {
                 webFlowersCard.style.display = 'none';
-                wrapper.style.display = 'block';
+                wrapper.style.display = 'flex';
 
                 setTimeout(() => {
                   wrapper.style.transition = 'opacity 2s ease';
@@ -248,48 +259,68 @@ export function initializeCardAnimation() {
 
     cardAnimationWrapper.forEach((wrapper, index) => {
       const innerContainer = cardInnerContainersHidden[index] as HTMLElement;
-      wrapper.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent click event propagation
-        if (index === activeCardIndex) {
-          // Clicked on the active card, close it
+      if (innerContainer) {
+        wrapper.addEventListener('click', (event) => {
+          event.stopPropagation();
+
+          if (index === activeCardIndex) {
+            closeCard();
+          } else {
+            closeActiveCard(cardAnimationWrapper, cardInnerContainersHidden, activeCardIndex);
+            const cards = [healthyCard, forestDiaryCard, webFlowersCard];
+
+            cards.forEach((card) => {
+              if (card) {
+                card.style.opacity = '0%';
+                card.style.transition = 'opacity 2s ease';
+                card.style.display = 'none';
+              }
+            });
+
+            brandingAnimationWrapper.forEach((wrapper) => {
+              wrapper.style.display = 'flex';
+
+              setTimeout(() => {
+                wrapper.style.transition = 'opacity 2s ease';
+                wrapper.style.opacity = '1';
+              }, 300);
+            });
+
+            openCard();
+          }
+          // THIS PART
+        });
+
+        innerContainer.addEventListener('click', (event) => {
+          event.stopPropagation(); // Prevent click event propagation
           closeCard();
-        } else {
-          // Clicked on a different card, close the active card (if any) and open the clicked card
-          closeActiveCard(cardAnimationWrapper, cardInnerContainersHidden, activeCardIndex);
+        });
 
-          openCard();
+        function openCard() {
+          innerContainer.style.display = 'block';
+          wrapper.style.opacity = '0';
+          wrapper.style.display = 'none';
+
+          setTimeout(() => {
+            innerContainer.style.transition = 'opacity 2s ease';
+            innerContainer.style.opacity = '100%';
+          }, 300);
+
+          activeCardIndex = index;
         }
-      });
 
-      innerContainer.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent click event propagation
-        closeCard();
-      });
+        function closeCard() {
+          innerContainer.style.opacity = '0';
+          innerContainer.style.display = 'none';
+          wrapper.style.display = 'block';
 
-      function openCard() {
-        innerContainer.style.display = 'block';
-        wrapper.style.opacity = '0';
-        wrapper.style.display = 'none';
+          setTimeout(() => {
+            wrapper.style.transition = 'opacity 2s ease';
+            wrapper.style.opacity = '100%';
+          }, 300);
 
-        setTimeout(() => {
-          innerContainer.style.transition = 'opacity 2s ease';
-          innerContainer.style.opacity = '100%';
-        }, 300);
-
-        activeCardIndex = index;
-      }
-
-      function closeCard() {
-        innerContainer.style.opacity = '0';
-        innerContainer.style.display = 'none';
-        wrapper.style.display = 'block';
-
-        setTimeout(() => {
-          wrapper.style.transition = 'opacity 2s ease';
-          wrapper.style.opacity = '100%';
-        }, 300);
-
-        activeCardIndex = -1;
+          activeCardIndex = -1;
+        }
       }
     });
   }

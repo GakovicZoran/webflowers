@@ -14,40 +14,26 @@ const imageUrls = [
 
 export function startAnimation() {
   const containerElement = document.querySelector('[hero-image-container="hero-image-animation"]');
-  let imageElements = containerElement?.querySelectorAll('img.hero-image-layer');
+  let imageElement = containerElement?.querySelector('img.hero-image-layer');
 
-  if (imageElements !== undefined && imageElements.length > 8) {
-    for (let i = imageElements.length - 1; i >= imageElements.length - 9; i--) {
-      containerElement?.removeChild(imageElements[i]);
-    }
+  if (!imageElement) {
+    imageElement = document.createElement('img');
+    imageElement.style.display = 'none';
+    imageElement.classList.add('hero-image-layer');
+    containerElement?.appendChild(imageElement);
   }
 
   const timeline = gsap.timeline();
 
   imageUrls.forEach((url, index) => {
-    const imageElement = document.createElement('img');
-    imageElement.src = url;
-    imageElement.style.display = 'none';
-    imageElement.classList.add('hero-image-layer');
-
-    if (index === imageUrls.length - 3) {
-      imageElement.style.marginTop = '1px';
-    } else if (index === imageUrls.length - 1) {
-      imageElement.style.marginTop = '1px';
-    }
-    containerElement?.appendChild(imageElement);
-
-    imageElements = containerElement?.querySelectorAll('img.hero-image-layer');
-
-    timeline
-      .to(imageElements as NodeListOf<Element>, {
-        display: 'none',
-        duration: 0.2,
-      })
-      .to(imageElement, {
-        display: 'block',
-        duration: 0.2,
-      });
+    timeline.to(imageElement, {
+      display: 'none',
+      duration: 0.5,
+      onComplete: () => {
+        imageElement.src = url;
+        imageElement.style.display = 'block';
+      },
+    });
   });
 
   timeline.play();

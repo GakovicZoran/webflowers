@@ -5,14 +5,24 @@ import { setButtonBackgroundColorToRed } from 'src/LiveChat';
 import { toggleMobileNavigation } from 'src/MobileMenu';
 import { changeNavbarDuringScroll } from 'src/Navigation';
 import animatePlaceholder from 'src/TypewriteAnimation';
+import ScrollReveal from 'scrollreveal';
+import { underlineAnimation } from 'src/UnderlineAnimation';
+import style from '../src/style.css';
+
+const linkElement = document.createElement('link');
+linkElement.rel = 'stylesheet';
+linkElement.href = style;
+
+document.head.appendChild(linkElement);
 
 toggleAccordion();
 changeNavbarDuringScroll();
+startAnimation();
 initializeCardAnimation();
 setButtonBackgroundColorToRed();
-startAnimation();
 animatePlaceholder();
 toggleMobileNavigation();
+underlineAnimation();
 
 // Changing input background color on focus
 const inputElements = document.querySelectorAll('.input.rounded.margin-bottom-small');
@@ -28,21 +38,28 @@ inputElements.forEach((inputElement) => {
   });
 });
 
-// // Add an event listener to adjust the width on window resize
-// window.addEventListener('resize', adjustParagraphWidth);
+const config = {
+  delay: 400,
+  distance: '120px',
+};
 
-// // Function to adjust the width of the paragraph dynamically
-// function adjustParagraphWidth() {
-//   const screenWidth = window.innerWidth;
-//   const paragraph = document.querySelector('.hero-paragraph-width');
+ScrollReveal().reveal('.slide-bottom', {
+  origin: 'top',
+  distance: '10px',
+  delay: 300,
+});
 
-//   if (screenWidth <= 767) {
-//     paragraph.style.width = '100%';
-//   } else {
-//     const calculatedWidth = 64 + ((screenWidth - 767) / 767) * 36; // Calculate the dynamic width
-//     paragraph.style.width = calculatedWidth + '%';
-//   }
-// }
+ScrollReveal().reveal('.slide-up', {
+  origin: 'bottom',
+  ...config,
+});
 
-// // Call the function initially to set the initial width
-// adjustParagraphWidth();
+ScrollReveal().reveal('.slide-left', {
+  origin: 'left',
+  ...config,
+});
+
+ScrollReveal().reveal('.slide-right', {
+  origin: 'right',
+  ...config,
+});

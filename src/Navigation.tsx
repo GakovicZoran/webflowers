@@ -2,16 +2,15 @@ export function changeNavbarDuringScroll() {
   const navigation = document.querySelector<HTMLElement>('[navigation="trigger"]');
   const sections = Array.from(document.querySelectorAll<HTMLElement>('[id^="section-"]'));
   const getAnchorTags = navigation?.querySelectorAll('a');
-  const navbarCtaBtn = document.querySelector('.hero-cta') as HTMLElement;
+  const navbarCtaBtn = document.querySelector('.hero-animated-cta') as HTMLElement;
+  const navbarCtaBtnV2 = document.querySelector('.hero-animated-cta-v2') as HTMLElement;
   const navigationInnerContainer = navigation?.querySelector('.navigation-logo-container');
   const logoAnchorTag = document.createElement('a');
-  const logoImgTag = document.createElement('img');
+  const logoImgTag = navigationInnerContainer?.querySelector('img');
   const logoAnchorTags = navigationInnerContainer?.querySelectorAll('.logo-image');
   const hamburgerMenuIcon = document.querySelector<HTMLElement>('.hamburger-menu');
-  const elementSection1 = document.querySelector<HTMLElement>('#section-1');
-  const navBarContainer = document.querySelector<HTMLElement>('#nav-bar-container');
 
-  logoAnchorTag.appendChild(logoImgTag);
+  const navBarContainer = document.querySelector<HTMLElement>('#nav-bar-container');
 
   let prevScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -37,7 +36,7 @@ export function changeNavbarDuringScroll() {
 
     window.addEventListener('scroll', () => {
       const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-
+    
       let index = sectionTops.findIndex((top, i) => {
         const nextTop = sectionTops[i + 1] || Number.MAX_VALUE;
         return scrollPosition >= top && scrollPosition < nextTop;
@@ -63,18 +62,21 @@ export function changeNavbarDuringScroll() {
 
       if (backgroundColor === '#2d3748') {
         logoImgTag.src = logoImage1;
+        navbarCtaBtn.style.display = 'block';
+        navbarCtaBtnV2.style.display = 'none';
 
         getAnchorTags?.forEach((anchor) => {
           anchor.style.color = '#cbd5e0';
         });
-        navbarCtaBtn.style.border = '1px solid #cbd5e0';
       } else if (backgroundColor === '#cbd5e0') {
+        navbarCtaBtn.style.display = 'none';
+        navbarCtaBtnV2.style.display = 'block';
+
         logoImgTag.src = logoImage2;
 
         getAnchorTags?.forEach((anchor) => {
           anchor.style.color = '#2d3748';
         });
-        navbarCtaBtn.style.border = '1px solid #2d3748';
       }
 
       if (scrollPosition > prevScrollPosition) {
