@@ -9,7 +9,7 @@ export function changeNavbarDuringScroll() {
   const logoImgTag = navigationInnerContainer?.querySelector('img');
   const logoAnchorTags = navigationInnerContainer?.querySelectorAll('.logo-image');
   const hamburgerMenuIcon = document.querySelector<HTMLElement>('.hamburger-menu');
-
+  const navigationLinksContaner = document.querySelectorAll<HTMLElement>('.navigation-menu-container');
   const navBarContainer = document.querySelector<HTMLElement>('#nav-bar-container');
 
   let prevScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
@@ -36,7 +36,7 @@ export function changeNavbarDuringScroll() {
 
     window.addEventListener('scroll', () => {
       const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    
+
       let index = sectionTops.findIndex((top, i) => {
         const nextTop = sectionTops[i + 1] || Number.MAX_VALUE;
         return scrollPosition >= top && scrollPosition < nextTop;
@@ -61,6 +61,19 @@ export function changeNavbarDuringScroll() {
       navigation.style.backgroundColor = backgroundColor;
 
       if (backgroundColor === '#2d3748') {
+        navigationLinksContaner.forEach((container) => {
+          const underlineMenuContainers = container.querySelectorAll<HTMLElement>('[underline="animation"]');
+
+          underlineMenuContainers.forEach((menuContainer) => {
+            menuContainer.classList.remove('underline-primary');
+            menuContainer.classList.add('underline-secondary');
+            const anchorTag = menuContainer.querySelector('a');
+
+            setTimeout(function () {
+              anchorTag.classList.remove('hide-underline-temporary');
+            }, 500);
+          });
+        });
         logoImgTag.src = logoImage1;
         navbarCtaBtn.style.display = 'block';
         navbarCtaBtnV2.style.display = 'none';
@@ -69,6 +82,20 @@ export function changeNavbarDuringScroll() {
           anchor.style.color = '#cbd5e0';
         });
       } else if (backgroundColor === '#cbd5e0') {
+        navigationLinksContaner.forEach((container) => {
+          const underlineMenuContainers = container.querySelectorAll<HTMLElement>('[underline="animation"]');
+
+          underlineMenuContainers.forEach((menuContainer) => {
+            menuContainer.classList.remove('underline-secondary');
+            menuContainer.classList.add('underline-primary');
+            const anchorTag = menuContainer.querySelector('a');
+
+            setTimeout(function () {
+              anchorTag.classList.remove('hide-underline-temporary');
+            }, 500);
+          });
+        });
+
         navbarCtaBtn.style.display = 'none';
         navbarCtaBtnV2.style.display = 'block';
 

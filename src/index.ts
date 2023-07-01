@@ -6,7 +6,6 @@ import { toggleMobileNavigation } from 'src/MobileMenu';
 import { changeNavbarDuringScroll } from 'src/Navigation';
 import animatePlaceholder from 'src/TypewriteAnimation';
 import ScrollReveal from 'scrollreveal';
-import { underlineAnimation } from 'src/UnderlineAnimation';
 import style from '../src/style.css';
 
 const linkElement = document.createElement('link');
@@ -22,7 +21,6 @@ initializeCardAnimation();
 setButtonBackgroundColorToRed();
 animatePlaceholder();
 toggleMobileNavigation();
-underlineAnimation();
 
 // Changing input background color on focus
 const inputElements = document.querySelectorAll('.input.rounded.margin-bottom-small');
@@ -63,3 +61,39 @@ ScrollReveal().reveal('.slide-right', {
   origin: 'right',
   ...config,
 });
+
+// Set display: none for mobile-menu-container
+const mobileMenuContainer = document.querySelector('.mobile-menu-container');
+const mediaQuery = window.matchMedia('(min-width: 768px)');
+
+function handleMediaQueryChange(event) {
+  if (event.matches) {
+    mobileMenuContainer.style.display = 'none';
+  } else {
+    mobileMenuContainer.style.display = '';
+  }
+}
+
+mediaQuery.addEventListener('change', handleMediaQueryChange);
+handleMediaQueryChange(mediaQuery);
+
+function toggleScrollToTop() {
+  const scrollToTopElement = document.querySelector('.scroll-to-top') as HTMLElement;
+  const scrollThreshold = 0.3 * document.documentElement.scrollHeight;
+
+  function handleScroll() {
+    if (window.scrollY >= scrollThreshold) {
+      scrollToTopElement.style.display = 'block';
+    } else {
+      scrollToTopElement.style.display = 'none';
+    }
+  }
+
+  // Initial state
+  handleScroll();
+
+  // Listen for scroll events
+  window.addEventListener('scroll', handleScroll);
+}
+
+toggleScrollToTop();

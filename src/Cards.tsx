@@ -40,6 +40,7 @@ export function initializeCardAnimation() {
       'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/647602b4b119e5e438dd50f5_branding-forest-hovered.png',
       'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/647602b450d16565dff6841a_branding-webflowers-hovered.png',
     ];
+
     cardWrappers.forEach((cardWrapper, index) => {
       const innerWrapper = cardWrapper.querySelector('[card-inner-wrapper="card-inner-interaction"]');
       const defaultImage = innerWrapper?.querySelector('img') as HTMLImageElement | null;
@@ -166,7 +167,7 @@ export function initializeCardAnimation() {
             wrapper.addEventListener('click', (event) => {
               closeActiveCard(cardAnimationWrapper, cardInnerContainersHidden, activeCardIndex);
 
-              event.stopPropagation(); // Prevent click event propagation
+              event.stopPropagation();
               if (forestDiaryCard) {
                 forestDiaryCard.style.display = 'flex';
               }
@@ -212,7 +213,7 @@ export function initializeCardAnimation() {
             wrapper.addEventListener('click', (event) => {
               closeActiveCard(cardAnimationWrapper, cardInnerContainersHidden, activeCardIndex);
 
-              event.stopPropagation(); // Prevent click event propagation
+              event.stopPropagation();
               if (webFlowersCard) {
                 webFlowersCard.style.display = 'flex';
                 webFlowersCard.style.justifyContent = 'flex-start';
@@ -279,20 +280,16 @@ export function initializeCardAnimation() {
 
             brandingAnimationWrapper.forEach((wrapper) => {
               wrapper.style.display = 'flex';
-
-              setTimeout(() => {
-                wrapper.style.transition = 'opacity 2s ease';
-                wrapper.style.opacity = '1';
-              }, 300);
+              wrapper.style.transition = 'opacity 2s ease';
+              wrapper.style.opacity = '1';
             });
 
             openCard();
           }
-          // THIS PART
         });
 
         innerContainer.addEventListener('click', (event) => {
-          event.stopPropagation(); // Prevent click event propagation
+          event.stopPropagation();
           closeCard();
         });
 
