@@ -17,6 +17,8 @@ export function startAnimation() {
 
   if (!imageElement) {
     imageElement.classList.add('hero-image-layer');
+    imageElement.removeAttribute('srcset');
+    imageElement.removeAttribute('sizes');
     containerElement?.appendChild(imageElement);
   }
 
@@ -28,6 +30,8 @@ export function startAnimation() {
   const timeline = gsap.timeline();
 
   imageUrls.forEach((url, index) => {
+    imageElement.removeAttribute('srcset');
+    imageElement.removeAttribute('sizes');
     timeline.to(imageElement, {
       duration: 0.55,
 
