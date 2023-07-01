@@ -20,6 +20,11 @@ export function startAnimation() {
     containerElement?.appendChild(imageElement);
   }
 
+  if (imageElement) {
+    imageElement.removeAttribute('srcset');
+    imageElement.removeAttribute('sizes');
+  }
+
   const timeline = gsap.timeline();
 
   imageUrls.forEach((url, index) => {
@@ -27,8 +32,6 @@ export function startAnimation() {
       duration: 0.55,
 
       onComplete: () => {
-        imageElement.removeAttribute('srcset');
-        imageElement.removeAttribute('sizes');
         imageElement.src = url;
       },
     });

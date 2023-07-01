@@ -6,11 +6,10 @@ import { toggleMobileNavigation } from 'src/MobileMenu';
 import { changeNavbarDuringScroll } from 'src/Navigation';
 import animatePlaceholder from 'src/TypewriteAnimation';
 import ScrollReveal from 'scrollreveal';
-import style from '../src/index.css';
 
 const linkElement = document.createElement('link');
 linkElement.rel = 'stylesheet';
-linkElement.href = style;
+linkElement.href = '../src/index.css';
 
 document.head.appendChild(linkElement);
 

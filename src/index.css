@@ -122,20 +122,6 @@
   left: 0;
 }
 
-.rc-anchor-light {
-  background-color: #cbd5e0 !important;
-}
-
-#rc-anchor-container {
-  background-color: #cbd5e0 !important;
-}
-
-.tawk-custom-color {
-  background-color: #cbd5e0 !important;
-  color: red !important;
-  width: 500px !important;
-}
-
 #searchbox:focus {
   background-color: rgba(203, 213, 224, 0.1);
   color: #cbd5e0;
