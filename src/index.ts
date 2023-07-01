@@ -6,6 +6,7 @@ import { toggleMobileNavigation } from 'src/MobileMenu';
 import { changeNavbarDuringScroll } from 'src/Navigation';
 import animatePlaceholder from 'src/TypewriteAnimation';
 import ScrollReveal from 'scrollreveal';
+import { toggleScrollToTop } from 'src/ScrollToTop';
 
 const linkElement = document.createElement('link');
 linkElement.rel = 'stylesheet';
@@ -20,6 +21,7 @@ initializeCardAnimation();
 setButtonBackgroundColorToRed();
 animatePlaceholder();
 toggleMobileNavigation();
+toggleScrollToTop();
 
 // Changing input background color on focus
 const inputElements = document.querySelectorAll('.input.rounded.margin-bottom-small');
@@ -75,24 +77,3 @@ function handleMediaQueryChange(event) {
 
 mediaQuery.addEventListener('change', handleMediaQueryChange);
 handleMediaQueryChange(mediaQuery);
-
-function toggleScrollToTop() {
-  const scrollToTopElement = document.querySelector('.scroll-to-top') as HTMLElement;
-  const scrollThreshold = 0.3 * document.documentElement.scrollHeight;
-
-  function handleScroll() {
-    if (window.scrollY >= scrollThreshold) {
-      scrollToTopElement.style.display = 'block';
-    } else {
-      scrollToTopElement.style.display = 'none';
-    }
-  }
-
-  // Initial state
-  handleScroll();
-
-  // Listen for scroll events
-  window.addEventListener('scroll', handleScroll);
-}
-
-toggleScrollToTop();
