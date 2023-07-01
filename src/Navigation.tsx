@@ -128,13 +128,14 @@ export function changeNavbarDuringScroll() {
 
     window.addEventListener('resize', () => {
       const windowWidth = window.innerWidth;
-
-      if (windowWidth >= 991) {
-        logoImgTag.style.width = '255px';
-        logoImgTag.style.height = '45px';
-      } else {
-        logoImgTag.style.width = '168px';
-        logoImgTag.style.height = '30px';
+      if (logoImgTag) {
+        if (windowWidth >= 991) {
+          logoImgTag.style.width = '255px';
+          logoImgTag.style.height = '45px';
+        } else {
+          logoImgTag.style.width = '168px';
+          logoImgTag.style.height = '30px';
+        }
       }
     });
 
