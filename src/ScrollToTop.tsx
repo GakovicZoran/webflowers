@@ -1,4 +1,4 @@
-export function toggleScrollToTop() {
+export function scrollToTop() {
   const scrollToTopElement = document.querySelector('.scroll-to-top') as HTMLElement;
   const scrollThreshold = 0.3 * document.documentElement.scrollHeight;
 

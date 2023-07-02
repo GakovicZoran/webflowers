@@ -8,7 +8,9 @@ export function changeNavbarDuringScroll() {
   const logoAnchorTag = document.createElement('a');
   const logoImgTag = navigationInnerContainer?.querySelector('img');
   const logoAnchorTags = navigationInnerContainer?.querySelectorAll('.logo-image');
-  const hamburgerMenuIcon = document.querySelector<HTMLElement>('.hamburger-menu');
+  const hamburgerMenuIconContainer = document.querySelector('.hamburger-menu');
+  const hamburgerMenuIcon = hamburgerMenuIconContainer?.querySelector('img');
+
   const navigationLinksContaner = document.querySelectorAll<HTMLElement>('.navigation-menu-container');
   const navBarContainer = document.querySelector<HTMLElement>('#nav-bar-container');
 
@@ -33,6 +35,11 @@ export function changeNavbarDuringScroll() {
     const logoImage1 = 'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64524689a1a3e6857d97fd63_dz-logo.svg';
     const logoImage2 =
       'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6452b092c110247c6c6ebedd_dz-logo-footer.svg';
+
+    const hamburgerLogoImage1 =
+      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/647d8d5bec24a2c486ada580_hamburger-menu.svg';
+    const hamburgerLogoImage2 =
+      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a1556e367f4ffecea1db2b_hamburger-menu-primary.svg';
 
     window.addEventListener('scroll', () => {
       const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
@@ -83,6 +90,10 @@ export function changeNavbarDuringScroll() {
           logoImgTag.src = logoImage1;
         }
 
+        if (hamburgerMenuIcon) {
+          hamburgerMenuIcon.src = hamburgerLogoImage1;
+        }
+
         navbarCtaBtn.style.display = 'block';
         navbarCtaBtnV2.style.display = 'none';
 
@@ -111,6 +122,10 @@ export function changeNavbarDuringScroll() {
 
         if (logoImgTag) {
           logoImgTag.src = logoImage2;
+        }
+
+        if (hamburgerMenuIcon) {
+          hamburgerMenuIcon.src = hamburgerLogoImage2;
         }
 
         getAnchorTags?.forEach((anchor) => {

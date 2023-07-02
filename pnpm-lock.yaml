@@ -14,6 +14,9 @@ dependencies:
   scrollreveal:
     specifier: ^4.0.9
     version: 4.0.9
+  typed.js:
+    specifier: ^2.0.16
+    version: 2.0.16
 
 devDependencies:
   '@changesets/changelog-git':
@@ -2707,6 +2710,10 @@ packages:
       for-each: 0.3.3
       is-typed-array: 1.1.10
     dev: true
+
+  /typed.js@2.0.16:
+    resolution: {integrity: sha512-IBB52GlJiTUOnomwdVVf7lWgC6gScn8md+26zTHj5oJWA+4pSuclHE76rbGI2hnyO+NT+QXdIUHbfjAY5nEtcw==}
+    dev: false
 
   /typescript@5.0.3:
     resolution: {integrity: sha512-xv8mOEDnigb/tN9PSMTwSEqAnUvkoXMQlicOb0IUVDBSQCgBSaAAROUZYy2IcUy5qU6XajK5jjjO7TMWqBTKZA==}

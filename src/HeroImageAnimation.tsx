@@ -1,14 +1,13 @@
 import { gsap } from 'gsap';
 
 const imageUrls: string[] = [
-  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6474a3c1b40eaf59585bc45f_hero-image-layer-4.webp',
-  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6474a804c77a4d4b39e4dfac_hero-image-layer-3.webp',
-  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6474a3c24c07c8a86b8c8170_hero-image-layer-6.webp',
-  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6474a3c28bd38417231f13eb_hero-image-layer-7.webp',
-  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6474a3c2bc4b35987b99dab1_hero-image-layer-8.webp',
-  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6474a3c24176cab6d242a4e5_hero-image-layer-9.webp',
-  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6474a8055739d23f87f8e67c_hero-image-layer-8.webp',
-  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6474a3c24176cab6d242a4e5_hero-image-layer-9.webp',
+  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a14bb77c06a4e2d7ec4de1_hero-image-layer-2.webp',
+  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a14bb76265165d6d83f5d6_hero-image-layer-3.webp',
+  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a14bb70cf476b49e4caf60_hero-image-layer-4.webp',
+  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a14bb72c99df9f4e6e96d6_hero-image-layer-5.webp',
+  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a14bb7c8cd2039570ca07e_hero-image-layer-6.webp',
+  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a14bb77c06a4e2d7ec4e26_hero-image-layer-7.webp',
+  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a14bb7c8cd2039570ca07e_hero-image-layer-6.webp',
 ];
 
 export function startAnimation(): void {
