@@ -50,7 +50,9 @@ export function changeNavbarDuringScroll() {
         navigation.style.top = '';
         navigation.style.width = '';
       } else if (scrollPosition > 100) {
-        navBarContainer.style.position = 'static';
+        if (navBarContainer) {
+          navBarContainer.style.position = 'static';
+        }
         navigation.style.position = 'fixed';
         navigation.style.top = '0';
         navigation.style.width = '100%';
@@ -70,11 +72,17 @@ export function changeNavbarDuringScroll() {
             const anchorTag = menuContainer.querySelector('a');
 
             setTimeout(function () {
-              anchorTag.classList.remove('hide-underline-temporary');
+              if (anchorTag) {
+                anchorTag.classList.remove('hide-underline-temporary');
+              }
             }, 500);
           });
         });
-        logoImgTag.src = logoImage1;
+
+        if (logoImgTag) {
+          logoImgTag.src = logoImage1;
+        }
+
         navbarCtaBtn.style.display = 'block';
         navbarCtaBtnV2.style.display = 'none';
 
@@ -91,7 +99,9 @@ export function changeNavbarDuringScroll() {
             const anchorTag = menuContainer.querySelector('a');
 
             setTimeout(function () {
-              anchorTag.classList.remove('hide-underline-temporary');
+              if (anchorTag) {
+                anchorTag.classList.remove('hide-underline-temporary');
+              }
             }, 500);
           });
         });
@@ -99,7 +109,9 @@ export function changeNavbarDuringScroll() {
         navbarCtaBtn.style.display = 'none';
         navbarCtaBtnV2.style.display = 'block';
 
-        logoImgTag.src = logoImage2;
+        if (logoImgTag) {
+          logoImgTag.src = logoImage2;
+        }
 
         getAnchorTags?.forEach((anchor) => {
           anchor.style.color = '#2d3748';

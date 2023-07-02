@@ -10,9 +10,5 @@ export function toggleScrollToTop() {
     }
   }
 
-  // Initial state
-  handleScroll();
-
-  // Listen for scroll events
   window.addEventListener('scroll', handleScroll);
 }

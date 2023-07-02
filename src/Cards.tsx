@@ -1,4 +1,8 @@
-export function closeActiveCard(cardAnimationWrapper, cardInnerContainersHidden, activeCardIndex) {
+export function closeActiveCard(
+  cardAnimationWrapper: NodeListOf<Element>,
+  cardInnerContainersHidden: NodeListOf<Element>,
+  activeCardIndex: number,
+) {
   if (activeCardIndex !== -1) {
     const activeWrapper = cardAnimationWrapper[activeCardIndex] as HTMLElement;
     const activeInnerContainer = cardInnerContainersHidden[activeCardIndex] as HTMLElement;
@@ -66,6 +70,7 @@ export function initializeCardAnimation() {
         });
       }
     });
+
     // Handle second section separately
     const secondSectionWrappers = document.querySelectorAll('.modified-card-animation-wrapper');
     const thirdCardWrapper = document.querySelector('.card-branding-container');
@@ -121,13 +126,18 @@ export function initializeCardAnimation() {
     brandingImageCardContainer.forEach((element, index) => {
       element.addEventListener('click', () => {
         if (index === 0) {
-          brandingAnimationWrapper.forEach((wrapper, index) => {
+          brandingAnimationWrapper.forEach((wrapper) => {
             wrapper.addEventListener('click', (event) => {
               closeActiveCard(cardAnimationWrapper, cardInnerContainersHidden, activeCardIndex);
-              event.stopPropagation(); // Prevent click event propagation
-              healthyCard.style.display = 'flex';
-              wrapper.style.opacity = '0';
-              wrapper.style.display = 'none';
+              event.stopPropagation();
+
+              if (healthyCard) {
+                healthyCard.style.display = 'flex';
+                healthyCard.style.alignSelf = 'baseline';
+              }
+
+              (wrapper as HTMLDivElement).style.opacity = '0';
+              (wrapper as HTMLDivElement).style.display = 'none';
 
               if (forestDiaryCard) {
                 forestDiaryCard.style.opacity = '0%';
@@ -152,12 +162,12 @@ export function initializeCardAnimation() {
             if (healthyCard) {
               healthyCard.addEventListener('click', (event) => {
                 healthyCard.style.display = 'none';
-                wrapper.style.display = 'flex';
+                (wrapper as HTMLDivElement).style.display = 'flex';
 
                 setTimeout(() => {
-                  wrapper.style.transition = 'opacity 2s ease';
+                  (wrapper as HTMLElement).style.transition = 'opacity 2s ease';
                   healthyCard.style.opacity = '0';
-                  wrapper.style.opacity = '100%';
+                  (wrapper as HTMLElement).style.opacity = '100%';
                 }, 300);
               });
             }
@@ -184,8 +194,8 @@ export function initializeCardAnimation() {
                 webFlowersCard.style.display = 'none';
               }
 
-              wrapper.style.opacity = '0';
-              wrapper.style.display = 'none';
+              (wrapper as HTMLDivElement).style.opacity = '0';
+              (wrapper as HTMLDivElement).style.display = 'none';
 
               setTimeout(() => {
                 if (forestDiaryCard) {
@@ -198,12 +208,12 @@ export function initializeCardAnimation() {
             if (forestDiaryCard) {
               forestDiaryCard.addEventListener('click', (event) => {
                 forestDiaryCard.style.display = 'none';
-                wrapper.style.display = 'flex';
+                (wrapper as HTMLDivElement).style.display = 'flex';
 
                 setTimeout(() => {
-                  wrapper.style.transition = 'opacity 2s ease';
+                  (wrapper as HTMLElement).style.transition = 'opacity 2s ease';
                   forestDiaryCard.style.opacity = '0';
-                  wrapper.style.opacity = '100%';
+                  (wrapper as HTMLElement).style.opacity = '100%';
                 }, 300);
               });
             }
@@ -216,10 +226,11 @@ export function initializeCardAnimation() {
               event.stopPropagation();
               if (webFlowersCard) {
                 webFlowersCard.style.display = 'flex';
-                webFlowersCard.style.justifyContent = 'flex-start';
+                webFlowersCard.style.alignSelf = 'baseline';
               }
-              wrapper.style.opacity = '0';
-              wrapper.style.display = 'none';
+
+              (wrapper as HTMLDivElement).style.opacity = '0';
+              (wrapper as HTMLDivElement).style.display = 'none';
 
               if (forestDiaryCard) {
                 forestDiaryCard.style.opacity = '0%';
@@ -244,12 +255,12 @@ export function initializeCardAnimation() {
             if (webFlowersCard) {
               webFlowersCard.addEventListener('click', (event) => {
                 webFlowersCard.style.display = 'none';
-                wrapper.style.display = 'flex';
+                (wrapper as HTMLDivElement).style.display = 'flex';
 
                 setTimeout(() => {
-                  wrapper.style.transition = 'opacity 2s ease';
+                  (wrapper as HTMLElement).style.transition = 'opacity 2s ease';
                   webFlowersCard.style.opacity = '0';
-                  wrapper.style.opacity = '100%';
+                  (wrapper as HTMLElement).style.opacity = '100%';
                 }, 300);
               });
             }
@@ -279,9 +290,9 @@ export function initializeCardAnimation() {
             });
 
             brandingAnimationWrapper.forEach((wrapper) => {
-              wrapper.style.display = 'flex';
-              wrapper.style.transition = 'opacity 2s ease';
-              wrapper.style.opacity = '1';
+              (wrapper as HTMLDivElement).style.display = 'flex';
+              (wrapper as HTMLElement).style.transition = 'opacity 2s ease';
+              (wrapper as HTMLElement).style.opacity = '1';
             });
 
             openCard();
@@ -295,8 +306,8 @@ export function initializeCardAnimation() {
 
         function openCard() {
           innerContainer.style.display = 'block';
-          wrapper.style.opacity = '0';
-          wrapper.style.display = 'none';
+          (wrapper as HTMLDivElement).style.opacity = '0';
+          (wrapper as HTMLDivElement).style.display = 'none';
 
           setTimeout(() => {
             innerContainer.style.transition = 'opacity 2s ease';
@@ -309,11 +320,11 @@ export function initializeCardAnimation() {
         function closeCard() {
           innerContainer.style.opacity = '0';
           innerContainer.style.display = 'none';
-          wrapper.style.display = 'block';
+          (wrapper as HTMLDivElement).style.display = 'block';
 
           setTimeout(() => {
-            wrapper.style.transition = 'opacity 2s ease';
-            wrapper.style.opacity = '100%';
+            (wrapper as HTMLElement).style.transition = 'opacity 2s ease';
+            (wrapper as HTMLElement).style.opacity = '100%';
           }, 300);
 
           activeCardIndex = -1;

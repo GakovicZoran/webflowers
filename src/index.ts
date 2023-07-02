@@ -1,7 +1,6 @@
 import { toggleAccordion } from 'src/Accordion';
 import { initializeCardAnimation } from 'src/Cards';
 import { startAnimation } from 'src/HeroImageAnimation';
-import { setButtonBackgroundColorToRed } from 'src/LiveChat';
 import { toggleMobileNavigation } from 'src/MobileMenu';
 import { changeNavbarDuringScroll } from 'src/Navigation';
 import animatePlaceholder from 'src/TypewriteAnimation';
@@ -9,19 +8,18 @@ import { toggleScrollToTop } from 'src/ScrollToTop';
 import { values } from 'src/Values';
 import { blogImageAnimation } from 'src/BlogImageAnimation';
 import { scrollAnimation } from 'src/ScrollAnimation';
-import gsap from 'gsap';
 
 const linkElement = document.createElement('link');
 linkElement.rel = 'stylesheet';
 linkElement.href = '../src/index.css';
 
 document.head.appendChild(linkElement);
+
 toggleAccordion();
 blogImageAnimation();
 changeNavbarDuringScroll();
 startAnimation();
 initializeCardAnimation();
-setButtonBackgroundColorToRed();
 animatePlaceholder();
 toggleMobileNavigation();
 toggleScrollToTop();

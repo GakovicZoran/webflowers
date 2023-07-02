@@ -28,23 +28,20 @@ export function startAnimation(): void {
       onComplete: () => {
         if (imageElement) {
           if (index === imageUrls.length - 2) {
-            // Switch to the last image
             imageElement.src = imageUrls[imageUrls.length - 1];
           } else if (index === imageUrls.length - 1) {
-            // Switch to the second-to-last image
             imageElement.src = imageUrls[imageUrls.length - 2];
           } else {
-            // Switch to the next image in a loop
             imageElement.src = imageUrls[(index + 1) % imageUrls.length];
           }
         }
 
-        switchImage((index + 1) % imageUrls.length); // Continue the loop
+        switchImage((index + 1) % imageUrls.length);
       },
     });
   }
 
-  switchImage(0); // Start the loop with the first image
+  switchImage(0);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
