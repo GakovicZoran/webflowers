@@ -47,3 +47,11 @@ function handleMediaQueryChange(event: MediaQueryListEvent) {
 
 mediaQuery.addEventListener('change', handleMediaQueryChange);
 handleMediaQueryChange(mediaQuery);
+
+// Get the element with the attribute blog-post="container"
+const element = document.getElementById('test');
+
+// Set the background color to red
+if (element) {
+  element.style.backgroundColor = 'red';
+}
