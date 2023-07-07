@@ -5,7 +5,6 @@ export function toggleMobileNavigation(): void {
   const elements = document.querySelectorAll('[close-mobile-menu="on-click"]');
   elements.forEach((element) => {
     element.addEventListener('click', function () {
-      console.log('clicked');
       const mobileMenuContainer = document.querySelector('.mobile-menu-container') as HTMLElement | null;
       const closeHamburgerMenu = document.querySelector('.close-hamburger-menu');
 

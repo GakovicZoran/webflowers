@@ -1,5 +1,5 @@
 import { toggleAccordion } from 'src/Accordion';
-import { initializeCardAnimation } from 'src/Cards';
+import { initializeCardAnimation } from 'src/cards/Cards';
 import { startAnimation } from 'src/HeroImageAnimation';
 import { toggleMobileNavigation } from 'src/MobileMenu';
 import { changeNavbarDuringScroll } from 'src/Navigation';
