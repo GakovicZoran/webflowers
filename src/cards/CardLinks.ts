@@ -6,8 +6,8 @@ export const hoverImageSrcsFirstSection = [
 ];
 
 export const hoverImageSrcsSecondSection = [
-  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a82ab5169d372002f36537_octacode-hovered-project.png',
-  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a82ab453d41a572162dc36_webflowers-hovered-project.png',
+  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a82ab5169d372002f36537_octacode-hovered-project.webp',
+  'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a82ab453d41a572162dc36_webflowers-hovered-project.webp',
 ];
 
 export const hoverImageSrcsThirdCard = [
