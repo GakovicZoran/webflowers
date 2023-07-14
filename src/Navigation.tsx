@@ -2,16 +2,17 @@ export function changeNavbarDuringScroll() {
   const navigation = document.querySelector<HTMLElement>('[navigation="trigger"]');
   const sections = Array.from(document.querySelectorAll<HTMLElement>('[id^="section-"]'));
   const getAnchorTags = navigation?.querySelectorAll('a');
-  const navbarCtaBtn = document.querySelector('.hero-cta') as HTMLElement;
+  const navbarCtaBtn = document.querySelector('.hero-animated-cta') as HTMLElement;
+  const navbarCtaBtnV2 = document.querySelector('.hero-animated-cta-v2') as HTMLElement;
   const navigationInnerContainer = navigation?.querySelector('.navigation-logo-container');
   const logoAnchorTag = document.createElement('a');
-  const logoImgTag = document.createElement('img');
+  const logoImgTag = navigationInnerContainer?.querySelector('img');
   const logoAnchorTags = navigationInnerContainer?.querySelectorAll('.logo-image');
-  const hamburgerMenuIcon = document.querySelector<HTMLElement>('.hamburger-menu');
-  const element = document.querySelector<HTMLElement>('#section-1');
-  const navBarContainer = document.querySelector<HTMLElement>('#nav-bar-container');
+  const hamburgerMenuIconContainer = document.querySelector('.hamburger-menu');
+  const hamburgerMenuIcon = hamburgerMenuIconContainer?.querySelector('img');
 
-  logoAnchorTag.appendChild(logoImgTag);
+  const navigationLinksContaner = document.querySelectorAll<HTMLElement>('.navigation-menu-container');
+  const navBarContainer = document.querySelector<HTMLElement>('#nav-bar-container');
 
   let prevScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -35,9 +36,14 @@ export function changeNavbarDuringScroll() {
     const logoImage2 =
       'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/6452b092c110247c6c6ebedd_dz-logo-footer.svg';
 
+    const hamburgerLogoImage1 =
+      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/647d8d5bec24a2c486ada580_hamburger-menu.svg';
+    const hamburgerLogoImage2 =
+      'https://uploads-ssl.webflow.com/63fc78bcc7aecb3a5d03c02c/64a1556e367f4ffecea1db2b_hamburger-menu-primary.svg';
+
     window.addEventListener('scroll', () => {
       const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-      console.log(scrollPosition);
+
       let index = sectionTops.findIndex((top, i) => {
         const nextTop = sectionTops[i + 1] || Number.MAX_VALUE;
         return scrollPosition >= top && scrollPosition < nextTop;
@@ -51,7 +57,9 @@ export function changeNavbarDuringScroll() {
         navigation.style.top = '';
         navigation.style.width = '';
       } else if (scrollPosition > 100) {
-        navBarContainer.style.position = 'static';
+        if (navBarContainer) {
+          navBarContainer.style.position = 'static';
+        }
         navigation.style.position = 'fixed';
         navigation.style.top = '0';
         navigation.style.width = '100%';
@@ -62,19 +70,67 @@ export function changeNavbarDuringScroll() {
       navigation.style.backgroundColor = backgroundColor;
 
       if (backgroundColor === '#2d3748') {
-        logoImgTag.src = logoImage1;
+        navigationLinksContaner.forEach((container) => {
+          const underlineMenuContainers = container.querySelectorAll<HTMLElement>('[underline="animation"]');
+
+          underlineMenuContainers.forEach((menuContainer) => {
+            menuContainer.classList.remove('underline-primary');
+            menuContainer.classList.add('underline-secondary');
+            const anchorTag = menuContainer.querySelector('a');
+
+            setTimeout(function () {
+              if (anchorTag) {
+                anchorTag.classList.remove('hide-underline-temporary');
+              }
+            }, 500);
+          });
+        });
+
+        if (logoImgTag) {
+          logoImgTag.src = logoImage1;
+        }
+
+        if (hamburgerMenuIcon) {
+          hamburgerMenuIcon.src = hamburgerLogoImage1;
+        }
+
+        navbarCtaBtn.style.display = 'block';
+        navbarCtaBtnV2.style.display = 'none';
 
         getAnchorTags?.forEach((anchor) => {
           anchor.style.color = '#cbd5e0';
         });
-        navbarCtaBtn.style.border = '1px solid #cbd5e0';
       } else if (backgroundColor === '#cbd5e0') {
-        logoImgTag.src = logoImage2;
+        navigationLinksContaner.forEach((container) => {
+          const underlineMenuContainers = container.querySelectorAll<HTMLElement>('[underline="animation"]');
+
+          underlineMenuContainers.forEach((menuContainer) => {
+            menuContainer.classList.remove('underline-secondary');
+            menuContainer.classList.add('underline-primary');
+            const anchorTag = menuContainer.querySelector('a');
+
+            setTimeout(function () {
+              if (anchorTag) {
+                anchorTag.classList.remove('hide-underline-temporary');
+              }
+            }, 500);
+          });
+        });
+
+        navbarCtaBtn.style.display = 'none';
+        navbarCtaBtnV2.style.display = 'block';
+
+        if (logoImgTag) {
+          logoImgTag.src = logoImage2;
+        }
+
+        if (hamburgerMenuIcon) {
+          hamburgerMenuIcon.src = hamburgerLogoImage2;
+        }
 
         getAnchorTags?.forEach((anchor) => {
           anchor.style.color = '#2d3748';
         });
-        navbarCtaBtn.style.border = '1px solid #2d3748';
       }
 
       if (scrollPosition > prevScrollPosition) {
@@ -99,13 +155,14 @@ export function changeNavbarDuringScroll() {
 
     window.addEventListener('resize', () => {
       const windowWidth = window.innerWidth;
-
-      if (windowWidth >= 991) {
-        logoImgTag.style.width = '255px';
-        logoImgTag.style.height = '45px';
-      } else {
-        logoImgTag.style.width = '168px';
-        logoImgTag.style.height = '30px';
+      if (logoImgTag) {
+        if (windowWidth >= 991) {
+          logoImgTag.style.width = '255px';
+          logoImgTag.style.height = '45px';
+        } else {
+          logoImgTag.style.width = '168px';
+          logoImgTag.style.height = '30px';
+        }
       }
     });
 

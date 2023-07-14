@@ -21,7 +21,7 @@ export function toggleAccordion() {
           setTimeout(() => {
             applyAccordionOpenStyle(element, accordionContent);
             activeAccordion = accordionContent;
-          }, 200);
+          }, 500);
         } else {
           applyAccordionOpenStyle(element, accordionContent);
           activeAccordion = accordionContent;
